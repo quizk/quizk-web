@@ -2,7 +2,7 @@
 name: "\U0001F41B Bug Report"
 about: File a bug report here to help us improve
 title: 'BUG - '
-labels: bug
+labels: bug, enhancement
 assignees: yorkittran, anaverage-enri
 
 ---
