@@ -1,0 +1,33 @@
+{
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  // "compilerOptions": {
+  //   "target": "es2018",
+  //   "module": "esnext",
+  //   "moduleResolution": "node",
+  //   "lib": ["esnext", "esnext.asynciterable", "dom"],
+  //   "esModuleInterop": true,
+  //   "allowJs": true,
+  //   "sourceMap": true,
+  //   "strict": true,
+  //   "noEmit": true,
+  //   "baseUrl": ".",
+  //   "paths": {
+  //     "~/*": ["./*"],
+  //     "@/*": ["./*"]
+  //   },
+
+  "references": [
+    {
+      "path": "./tsconfig.vite-config.json"
+    }
+  ]
+}

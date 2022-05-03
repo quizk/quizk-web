@@ -1,0 +1,89 @@
+# Frontend Estimate Workflow
+
+name: Deploy
+
+# Run when there is comment created
+on:
+  issue_comment:
+    types: [ created ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # only run when this is a comment on PR
+    if: ${{ github.event.issue.pull_request }}
+    name: PR comment to Deploy
+    steps:
+      - name: Check deploy command
+        uses: actions/github-script@v5
+        id: check_command
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const body = context.payload.comment.body
+
+            let [command, env] = body.split(' ').filter(w => w !== '')
+            if (command !== '/deploy') {
+              // Not deploy comment, abort other steps
+              core.setOutput('to_deploy', 'false')
+              return;
+            }
+            if (!['qa1', 'qa2', 'qa3', 'demo'].includes(env)) {
+              core.setFailed('Invalid environment')
+              return;
+            }
+
+            core.info(`Prepare to deploy to: ${env}`)
+            core.setOutput('to_deploy', 'true')
+            core.setOutput('job_name', 'raksul-dev-estimate-web-deploy')
+            core.setOutput('env', env)
+
+            await github.rest.reactions.createForIssueComment({
+              owner,
+              repo,
+              comment_id: context.payload.comment.id,
+              content: 'eyes'
+            });
+      - name: Get branch name
+        uses: actions/github-script@v5
+        id: get_branch_name
+        if: ${{ steps.check_command.outputs.to_deploy == 'true' }}
+        with:
+          script: |
+            const request = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            }
+            core.info(`Getting PR #${request.pull_number} from ${request.owner}/${request.repo}`)
+            try {
+              const result = await github.rest.pulls.get(request)
+              const branchName = result.data.head.ref
+              core.info(`Branch to deploy: ${branchName}`)
+              core.setOutput('branch_name', branchName)
+            } catch (err) {
+              core.setFailed(`Request failed with error ${err}`)
+            }
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: send-deploy-slack
+        if: ${{ steps.check_command.outputs.to_deploy == 'true' }}
+        uses: slackapi/slack-github-action@v1.14.0
+        with:
+          payload: "{\"env\":\"${{ env.DEPLOY_ENV }}\", \"job\":\"${{ env.JOB_NAME }}\",\"branch\":\"${{ env.BRANCH_NAME }}\"}"
+        env:
+          BRANCH_NAME: ${{ steps.get_branch_name.outputs.branch_name }}
+          DEPLOY_ENV: ${{ steps.check_command.outputs.env }}
+          JOB_NAME: ${{ steps.check_command.outputs.job_name }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Reaction to comment
+        uses: actions/github-script@v5
+        if: ${{ steps.check_command.outputs.to_deploy == 'true' }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            await github.rest.reactions.createForIssueComment({
+              owner,
+              repo,
+              comment_id: context.payload.comment.id,
+              content: 'rocket'
+            });
