@@ -7,5 +7,13 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "prettier.configPath": ".prettierrc",
   "prettier.enable": true,
-  "cSpell.words": ["quizk", "rushstack", "typecheck", "Vetur", "vitejs"]
+  "cSpell.words": [
+    "asynciterable",
+    "composables",
+    "quizk",
+    "rushstack",
+    "typecheck",
+    "Vetur",
+    "vitejs"
+  ]
 }
