@@ -11,7 +11,7 @@ const ToggleMenu = () => {
 <template>
   <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
     <div class="logo">
-      <img src="@/assets/logo.svg" alt="Quizk" />
+      <img src="@/assets/logo-quizk.png" alt="Quizk" />
     </div>
 
     <div class="menu-toggle-wrap">
@@ -39,7 +39,7 @@ const ToggleMenu = () => {
     <div class="flex"></div>
 
     <div class="menu">
-      <router-link to="/" class="button">
+      <router-link to="/login" class="button">
         <span class="material-icons">settings</span>
         <span class="text">Settings</span>
       </router-link>

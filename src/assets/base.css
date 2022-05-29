@@ -8,8 +8,10 @@
   --color-black-soft: #222222;
   --color-black-mute: #282828;
 
-  --color-primary: #4ade80;
-  --color-primary-soft: #22c55e;
+  /* --color-primary: #ed7042;
+  --color-primary-soft: #22c55e; */
+  --color-primary: #ee9d01;
+  --color-primary-soft: #ffa800;
   --color-grey: #64748b;
   --color-dark: #181818;
   --color-dark-soft: #222222;
