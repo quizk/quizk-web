@@ -20,7 +20,7 @@ function toggleMode() {
     >
       <div class="card"></div>
       <div class="card">
-        <h1 class="title">Login</h1>
+        <h1 class="title">Quizk</h1>
         <form>
           <div class="input-container">
             <input type="text" id="email" required />
