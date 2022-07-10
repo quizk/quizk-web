@@ -74,7 +74,7 @@ function toggleMode() {
 <style lang="scss" scoped>
 .root {
   min-height: 100vh;
-  width: 100%;
+  flex: 1;
   margin: auto auto;
 }
 /* Container */
@@ -83,6 +83,7 @@ function toggleMode() {
   max-width: 460px;
   width: 100%;
   margin: 0 auto 100px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
 
   &.active {
     .card {
