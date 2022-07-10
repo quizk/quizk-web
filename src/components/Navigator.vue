@@ -12,6 +12,7 @@ const ToggleMenu = () => {
   <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
     <div class="logo">
       <img src="@/assets/logo-quizk.png" alt="Quizk" />
+      <h1>Quizk</h1>
     </div>
 
     <div class="menu-toggle-wrap">
@@ -20,7 +21,7 @@ const ToggleMenu = () => {
       </button>
     </div>
 
-    <h3>Menu</h3>
+    <h2>Menu</h2>
     <div class="menu">
       <router-link to="/" class="button">
         <span class="material-icons">home</span>
@@ -51,21 +52,29 @@ const ToggleMenu = () => {
 aside {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-dark);
-  color: var(--color-light);
+  background-color: var(--color-white);
   width: calc(2rem + 32px);
   overflow: hidden;
   min-height: 100vh;
   padding: 1rem;
   transition: 0.2s ease-in-out;
   margin-right: 25px;
+  border-radius: 0 25px 25px 0;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 10px 12px;
   .flex {
     flex: 1 1 0%;
   }
   .logo {
+    display: flex;
+    align-items: center;
     margin-bottom: 1rem;
     img {
       width: 2rem;
+      margin-right: 20px;
+    }
+    h1 {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
     }
   }
   .menu-toggle-wrap {
@@ -79,7 +88,7 @@ aside {
       transition: 0.2s ease-in-out;
       .material-icons {
         font-size: 2rem;
-        color: var(--color-light);
+        color: var(--color-primary);
         transition: 0.2s ease-out;
       }
 
@@ -91,14 +100,15 @@ aside {
       }
     }
   }
-  h3,
+  h2,
   .button .text {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
   }
-  h3 {
-    color: var(--color-light);
+  h2 {
+    color: var(--color-primary);
     font-size: 0.875rem;
+    font-weight: var(--font-weight-bold);
     margin-bottom: 0.5rem;
     text-transform: uppercase;
   }
@@ -112,26 +122,33 @@ aside {
       padding: 0.5rem 1rem;
       .material-icons {
         font-size: 2rem;
-        color: var(--color-light);
+        color: var(--color-primary);
         transition: 0.2s ease-in-out;
       }
       .text {
-        color: var(--color-light);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-primary);
         transition: 0.2s ease-in-out;
       }
       &:hover {
-        background-color: var(--color-dark-soft);
+        background-color: var(--color-primary);
         .material-icons,
         .text {
-          color: var(--color-primary);
+          color: var(--color-light);
         }
       }
       &.router-link-exact-active {
-        background-color: var(--color-dark-soft);
         border-right: 5px solid var(--color-primary);
         .material-icons,
         .text {
           color: var(--color-primary);
+        }
+
+        &:hover {
+          .material-icons,
+          .text {
+            color: var(--color-light);
+          }
         }
       }
     }
@@ -145,7 +162,7 @@ aside {
         transform: rotate(-180deg);
       }
     }
-    h3,
+    h2,
     .button .text {
       opacity: 1;
     }
